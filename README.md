@@ -1,5 +1,11 @@
 # COLDSTART
-Bad name, please ignore.
+- Bad name, please ignore.
+- This is not a process.
+- This is sorta about structure.
+- This is not about automation.
+- This **is** closer to a pattern to follow, you need to be engaged, you need to read.
+- This pattern has been _good_ for me, it _might_ be a waste of your time.
+
 
 ## WHY?
 - Why not.
