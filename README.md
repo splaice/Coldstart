@@ -3,7 +3,9 @@
 - This is not a process.
 - This is sorta about structure.
 - This is not about automation.
-- This **is** closer to a pattern to follow, you need to be engaged, you need to read.
+- This is closer to a _pattern_ than anything else.
+- You need to be engaged.
+- You need to read, review and be the editor.
 - This pattern has been _good_ for me, it _might_ be a waste of your time.
 
 
