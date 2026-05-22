@@ -1,4 +1,4 @@
-# TEMPLATE_BRIEF.md
+# _BRIEF.md
 
 A skeleton for planning briefs that derive cleanly into a SPEC.md.
 Each section names what belongs there and gives the agent

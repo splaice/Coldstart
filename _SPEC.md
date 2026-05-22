@@ -1,4 +1,4 @@
-# TEMPLATE_SPEC.md
+# _SPEC.md
 
 A skeleton for specifications derived from a completed
 `_BRIEF.md`. Each section names what belongs there and
