@@ -63,6 +63,17 @@ involvement as possible? I don't know, but here are the things I using and exper
 
 Note: This file will rot with time. You will need to have the agent keep it updated as it develops the codebase for it to be useful.
 
+### AGENTS/CLAUDE.md
+1. copy _AGENTS.md into your project
+2. Ask the agent to read _AGENTS.md and to follow the instructions to create a proper AGENTS.md for your project.
+2a. It should also create a CLAUDE.md that just links Claude to AGENTS.model
+
+### WORKFLOW.md 
+This is very rough and basic, this file looks very different based on the project I am working on and how i want it to develop. Some are much tighter on the guardrails or more extensive in the steps I want the coding agents to take. Some version of mine have a full code-review loop with humans and agents interacting on PRs. This version is just a minimal set of conventions to keep the coding agents working with a reasonable set of guidelines. YOU SHOULD READ AND UNDERSTAND IT AND GUIDE THE AGENT TO DO WHAT **YOU** WANT.
+
+1. Copy _WORKFLOW.md into your project.
+2. Tell the agent to read it and follow the instructions to create a proper WORKFLOW.md for your project.
+
 
 ## TODO
 - INFRA.md
