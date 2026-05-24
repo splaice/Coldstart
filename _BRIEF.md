@@ -4,14 +4,57 @@ A skeleton for planning briefs that derive cleanly into a SPEC.md.
 Each section names what belongs there and gives the agent
 helping a human fill it out a short hint list.
 
+The brief supports two modes — pick first:
+
+- **Cold-start.** Greenfield project; no implementation exists
+  yet. The brief captures intent before code: what to build,
+  what not to build, what's load-bearing. The user is the
+  source of truth.
+- **Warm-start.** A codebase already exists. The brief reverse-
+  engineers the design by reading code, tests, configs,
+  READMEs, and existing decisions — *not* to transcribe the
+  code, but to surface **intent vs. accident**. What was
+  deliberately decided, vs. what just happened? The human
+  resolves the difference before the brief closes.
+
 ## How to use this template
 
-- Work top-to-bottom. Earlier decisions constrain later ones.
+### Mode-specific guidance
+
+**Cold-start mode.** Work top-to-bottom; earlier decisions
+constrain later ones. The user answers; ask before guessing.
+Use `?? ... ??` to mark anything the user has not yet
+decided. No `BRIEF_BLOCKERS.md` is created.
+
+**Warm-start mode.** Read the codebase first (entry points,
+public surfaces, tests, config files, READMEs, any ADRs)
+before writing anything. Then fill the brief from
+observation. Every section's hints below assume a cold-start
+collaborator — translate them: where a hint says "push the
+user to write...", read it as "look for the equivalent fact
+in the code, and if it isn't there, invent a reasonable one
+and mark it `!!`". Two new disciplines apply:
+
+- Mark **ambiguities** with `?? ... ??` — places where the
+  code permits two readings and you cannot tell which was
+  intended.
+- Mark **invented or recommended facts** with `!! ... !!` —
+  places where you chose a value the code does not pin
+  down (a name for a behavior, a guessed limit, a category,
+  an inferred convention). Both kinds of marker stay in the
+  brief body until the human resolves them.
+- Write a companion `BRIEF_BLOCKERS.md` (format below)
+  enumerating every `??` and `!!` site as a checklist.
+  Status (§0) stays `OPEN` until that file is empty or
+  deleted.
+
+### General rules (both modes)
+
 - Mark normative rules as one of `MUST`, `SHOULD`, `MAY`, or
   `IMPL-DEFINED` (variation point the SPEC names but doesn't
   fix).
-- Tag genuinely open questions with `?? ... ??` while drafting.
-  Resolve or move to the Decision Log before deriving SPEC.
+- Resolve every `?? ... ??` and `!! ... !!` marker — or move
+  it to the Decision Log — before the brief closes.
 - Keep the brief stable. When a decision changes, update both
   the affected section AND the Decision Log — don't leave the
   brief and the log saying different things.
@@ -21,6 +64,41 @@ helping a human fill it out a short hint list.
 - When the brief gets long enough that you can't scan it,
   consider whether sections are duplicating content; cross-
   references between sections beat re-statements.
+
+### `BRIEF_BLOCKERS.md` (warm-start only)
+
+A working checklist the agent writes alongside the brief in
+warm-start mode. It lists every `??` and `!!` site so the
+human can resolve them in one sweep. Deleted once empty.
+
+Format:
+
+```markdown
+# BRIEF_BLOCKERS.md
+
+Companion to `BRIEF.md` (spec version: <X>, mode: warm-start).
+Resolve every item before closing the brief.
+
+## Ambiguities to resolve (`?? ... ??`)
+
+- [ ] BL-1 · §<loc> · `?? <marker text> ??`
+      What:      <what is unclear from the code>
+      Options:   <two or more possible readings>
+      Needs:     <human decision>
+      Resolved:  <YYYY-MM-DD — what was decided>
+
+## Invented / recommended facts to confirm (`!! ... !!`)
+
+- [ ] BL-N · §<loc> · `!! <marker text> !!`
+      What:      <fact the agent chose>
+      Reason:    <why this default seemed reasonable>
+      Needs:     <human confirm or override>
+      Resolved:  <YYYY-MM-DD — confirmed, or replaced with X>
+```
+
+Numbering is stable: never renumber on resolution. When the
+file holds zero unchecked items, delete it and flip §0 Status
+to `CLOSED`.
 
 ---
 
@@ -34,18 +112,28 @@ Tiny header that orients a fresh reader in three lines.
   step to `B`, `C`, etc. Avoids the "v0 / v1" anachronism
   creeping into prose later. The version does NOT appear
   anywhere in the body — only here.
+- **Mode** is one of:
+    - `cold-start` — greenfield; brief precedes code.
+    - `warm-start` — codebase exists; brief is derived
+      from code and reviewed for intent. A companion
+      `BRIEF_BLOCKERS.md` exists while drafting.
 - **Status** is one of exactly two values:
     - `OPEN` — the brief is still being drafted; sections
-      may contain `?? ... ??` markers and the Decision
-      Log may have unresolved items.
+      may contain `?? ... ??` (and, in warm-start mode,
+      `!! ... !!`) markers, the Decision Log may have
+      unresolved items, and `BRIEF_BLOCKERS.md` (warm-
+      start) may hold unchecked items.
     - `CLOSED` — all decisions are settled, no open
-      markers remain in the body, and the brief is ready
-      to derive a SPEC.md from.
+      markers remain in the body, `BRIEF_BLOCKERS.md`
+      has been deleted (warm-start) or never existed
+      (cold-start), and the brief is ready to derive
+      a SPEC.md from.
 - "Out-of-band assumptions" is for things readers should
   already know (RFC 2119, the host platform, the target
   language ecosystem). Don't restate them in the body.
 
 - **Spec version:**
+- **Mode:**
 - **Status:**
 - **Out-of-band assumptions:**
 

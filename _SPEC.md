@@ -12,8 +12,19 @@ point where an implementor needs no further input.
 
 - This template is populated by an agent transforming a
   `CLOSED` `_BRIEF.md` into a SPEC. Do NOT derive from an
-  `OPEN` brief — unresolved `?? ... ??` markers must be
-  settled in the brief first.
+  `OPEN` brief — unresolved `?? ... ??` (and, for warm-
+  start briefs, `!! ... !!`) markers must be settled, and
+  any `BRIEF_BLOCKERS.md` companion file must be empty or
+  deleted before derivation starts.
+- **Warm-start derivation has an extra duty.** When the
+  source brief is `Mode: warm-start`, cross-check every
+  brief claim against the actual code as you derive each
+  SPEC section. Any disagreement — the brief says one
+  thing and the code does another — becomes a `CODE-DRIFT`
+  item in §13, marked `BLOCKING`. The resolution decides
+  which side is right (brief → amend the brief; code →
+  file as a bug). Do not silently align the SPEC with the
+  code; the drift is the finding.
 - Work top-to-bottom. SPEC §N is derived primarily from
   brief §N; the numbering is kept aligned so cross-
   references survive the transform.
@@ -454,6 +465,14 @@ SPEC's hand-back to the human: until §13.a holds zero
     error name, a timeout, an enum member, a precedence
     order, an identifier shape. Anything you would
     otherwise have to invent silently goes here.
+  - `CODE-DRIFT` — (warm-start derivation only) the brief
+    claims a behavior the code does not exhibit, or the
+    code exhibits a behavior the brief does not capture.
+    Always `BLOCKING`. Resolution decides which side is
+    right: amend the brief if the code is correct, file an
+    implementation bug if the brief is correct. Do not
+    silently align the SPEC with the code — the drift
+    itself is the finding.
 - For every `MISSING-FACT`, do NOT leave the SPEC blank:
   put a best-effort `IMPL-DEFINED` or a clearly-marked
   provisional value inline in the relevant section AND log
@@ -483,10 +502,10 @@ SPEC's hand-back to the human: until §13.a holds zero
 ```
 
 `CATEGORY` is one of `CONTRADICTION`, `ERROR`, `AMBIGUITY`,
-`MISSING-FACT`. `§<loc>` points at the SPEC section the
-item affects; use `§A ↔ §B` for a contradiction spanning
-two locations, and add `(brief §N)` when the root cause is
-in the brief.
+`MISSING-FACT`, `CODE-DRIFT` (warm-start only). `§<loc>`
+points at the SPEC section the item affects; use `§A ↔ §B`
+for a contradiction spanning two locations, and add
+`(brief §N)` when the root cause is in the brief.
 
 ### 13.a Open Items
 
