@@ -49,6 +49,21 @@ So you have an existing code base and you want some structure around directing y
 6. Build it (not you, just ask the agent. "Claude, review SPEC.md, create a plan to implement the functionality described in it. Cover the gap between SPEC and the current code base)
 7. You have now completed a new feature.
 
+## CODING HARNESS
+How do you keep the agent on point and producing code predictably with as little
+involvement as possible? I don't know, but here are the things I using and experimenting with.
+
+### ARCHITECTURE.md WARMSTART
+0. Read https://matklad.github.io/2021/02/06/ARCHITECTURE.md.html.
+1. Copy _ARCHITECTURE.md into your project. You will need an existing codebase.
+2. Ask the agent to read _ARCHITECTURE.md and to follow the instructions.
+3. It will create an ARCHITECTURE.md that describes the code base.
+4. You will need to reference the existence of ARCHITECTURE.md in CLAUDE/AGENTS.md
+5. Remove _ARCHITECTURE.md
+
+Note: This file will rot with time. You will need to have the agent keep it updated as it develops the codebase for it to be useful.
+
+
 ## TODO
 - INFRA.md
 - HARNESS.md
@@ -60,3 +75,4 @@ Inspired, copied, stolen from everything below.
 - https://github.com/openai/symphony/blob/main/SPEC.md
 - https://openai.com/index/open-source-codex-orchestration-symphony/
 - https://openai.com/index/harness-engineering/
+- https://matklad.github.io/2021/02/06/ARCHITECTURE.md.html
